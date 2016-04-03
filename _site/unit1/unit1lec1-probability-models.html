@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <head>
+<meta charset="utf-8">
+<title>  | </title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
 
   <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -29,6 +37,59 @@
 </head>
 <body>
 <div class="container">
+  
+<ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Notes</li>
+    
+    
+    <li>
+        <a href="#">Unit 1</a>
+        <ul>
+            
+            
+            
+            <li><a href="/unit1/unit1lec1-probability-models">Lec 1 - probability-models</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Unit 2</a>
+        <ul>
+            
+            
+            
+            <li><a href="/unit2/unit2lec2-conditioning-and-bayes-rule">Lec 2 - conditioning-and-bayes-rule</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/unit2/unit2lec3-independence">Lec 3 - independence</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
   <h1 id="probability-models-and-axioms">Probability Models and Axioms</h1>
 <!-- not deleted on drive -->
 <p>$\newcommand{\pr}[1]{\mathbf{P}!\left(#1\right)}$</p>
@@ -83,7 +144,7 @@ Given $\Omega$ of $n$ equally likely elements, and $A \subset \Omega, |A| = k$, 
 Countable additivity axiom:
 If $A_1, A_2, A_3, \ldots$ is an infinite <strong>sequence</strong> of disjoint events, then $\pr{A_1 \cup A_2 \cup A_3 \cup \cdots} = \pr{A_1} + \pr{A_2} + \pr{A_3} + \cdots$</p>
 
-<p><img src="unit1lec1-probability-models\1d81db0ae5a72c5fdc2e7e07ec8a156e.png" alt="" /></p>
+<p><img src="/images/unit1/unit1lec1-probability-models/1d81db0ae5a72c5fdc2e7e07ec8a156e.png" alt="" /></p>
 
 <p>Geometric sum
 infinite sum</p>
@@ -100,9 +161,10 @@ A framework for analyzing phenomena with uncertain outcomes
 
 <p>Statistics complements probability.</p>
 
-<p><img src="unit1lec1-probability-models\3a398f9f2f46087527ee73fc99827ee3.png" alt="relationship between probability theory and statistics" /></p>
+<p><img src="/images/unit1/unit1lec1-probability-models/3a398f9f2f46087527ee73fc99827ee3.png" alt="relationship between probability theory and statistics" /></p>
 
 
+  }
 </div>
 </body>
 </html>

@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <head>
+<meta charset="utf-8">
+<title>  | </title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+
 
   <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -29,6 +37,59 @@
 </head>
 <body>
 <div class="container">
+  
+<ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Notes</li>
+    
+    
+    <li>
+        <a href="#">Unit 1</a>
+        <ul>
+            
+            
+            
+            <li><a href="/unit1/unit1lec1-probability-models">Lec 1 - probability-models</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Unit 2</a>
+        <ul>
+            
+            
+            
+            <li><a href="/unit2/unit2lec2-conditioning-and-bayes-rule">Lec 2 - conditioning-and-bayes-rule</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/unit2/unit2lec3-independence">Lec 3 - independence</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
   <h1 id="lec-2-conditioning-and-bayes-rule">Lec 2: Conditioning and Baye’s rule</h1>
 
 <p>$\newcommand{\pr}[1]{\mathbf{P}!\left(#1\right)}$
@@ -106,7 +167,7 @@ Revising a model when we get new information.</p>
   <li>$B$ - something registered on radar</li>
 </ul>
 
-<p><img src="unit2lec2-conditioning-and-bayes-rule\e8b6d820f52007d53b7a924c5d596ba4.png" alt="radar probability tree" /></p>
+<p><img src="/images/unit2/unit2lec2-conditioning-and-bayes-rule/e8b6d820f52007d53b7a924c5d596ba4.png" alt="radar probability tree" /></p>
 
 <p>The probabilities on the second level of the tree are conditional probabilities, meaning they already take into account the fact that $A$ or $A^c$ occurred.</p>
 
@@ -165,7 +226,7 @@ $\pr{A\cap B}$, that something is flying and registered on radar.</p>
 
 <h2 id="total-probability-theorem">Total probability theorem</h2>
 
-<p><img src="unit2lec2-conditioning-and-bayes-rule\0b6af1e49dd25ed3d1976c915ecd48c4.png" alt="total probability theorem derivation" /></p>
+<p><img src="/images/unit2/unit2lec2-conditioning-and-bayes-rule/0b6af1e49dd25ed3d1976c915ecd48c4.png" alt="total probability theorem derivation" /></p>
 
 <h2 id="bayes-rule">Bayes Rule</h2>
 
@@ -186,6 +247,7 @@ $\pr{A\cap B}$, that something is flying and registered on radar.</p>
 <p>Forms the foundation of Bayesian inference which allows us to update our beliefs as new evidence comes in.</p>
 
 
+  }
 </div>
 </body>
 </html>
