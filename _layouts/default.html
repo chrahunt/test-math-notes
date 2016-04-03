@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <head>
-
+{% if page.math %}
+  {% include mathjax_support.html %}
+{% endif %}
 </head>
 <body>
 <div class="container">

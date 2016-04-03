@@ -1,6 +1,7 @@
 module Jekyll
   class PagesDirGenerator < Generator
     def generate(site)
+      # TODO: Add nav.
       puts "Generation plugin loading."
       pages_dir = site.config['pages'] || './_pages'
       all_raw_paths = Dir["#{pages_dir}/**/*"]
@@ -47,11 +48,16 @@ module Jekyll
       @name = name
 
       self.process(name)
-      read_yaml(File.join(base, pagesdir, dir), name)
+      self.read_yaml(File.join(base, pagesdir, dir), name)
 
-      data.default_proc = proc do |hash, key|
+      self.data.default_proc = proc do |hash, key|
         site.frontmatter_defaults.find(File.join(dir, name), type, key)
       end
+      self.data["layout"] = 'page'
+      self.data["math"] = true
+      # TODO: set title
+      # TODO: add math item
+      # TODO: Parse images
 
       Jekyll::Hooks.trigger :pages, :post_init, self
     end
