@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <head>
+{% include head.html %}
 {% if page.math %}
   {% include mathjax_support.html %}
 {% endif %}
 </head>
 <body>
 <div class="container">
+  {% include sidebar.html %}
   {{content}}
+  }
 </div>
 </body>
 </html>

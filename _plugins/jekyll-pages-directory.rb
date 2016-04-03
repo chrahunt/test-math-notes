@@ -7,26 +7,50 @@ module Jekyll
       # TODO: Add nav.
       puts "Notes plugin loading." # DEBUG
       pages_dir = site.config['pages'] || './_pages'
-      all_raw_paths = Dir["#{pages_dir}/**/*"]
+      all_files = Dir["#{pages_dir}/**/*"]
       # Get valid page extensions.
       exts = site.config["markdown_ext"].split(",") + ["htm", "html"]
-      all_raw_paths.each do |f|
-        if !exts.include? File.extname(f)[1..-1]
-          puts "Omitting #{f}"
-          next
-        end
+      # Filter out non-page files.
+      document_paths = all_files.select { |p| exts.include? File.extname(p)[1..-1] }
+      pages_for_nav = []
+      document_paths.each do |f|
         if File.file?(File.join(site.source, '/', f))
           filename = f.match(/[^\/]*$/)[0]
           clean_filepath = f.gsub(/^#{pages_dir}\//, '')
           clean_dir = extract_directory(clean_filepath)
 
-          site.pages << PagesDirPage.new(site,
+          page = PagesDirPage.new(site,
                                          site.source,
                                          clean_dir,
                                          filename,
                                          pages_dir)
+          pages_for_nav << page
+          site.pages << page
           #break # DEBUG; for debugging, only 1 page.
         end
+      end
+
+      # Create navigation in site.data.sidebar
+      pages_for_nav.select! { |p| p.get_type == :lecture }
+      units = {}
+      pages_for_nav.each do |f|
+        unit = f.get_unit
+        units[unit] = [] if !units[unit]
+        units[unit] << f
+      end
+      units.each_value {|v| v.sort! {|a,b| a.get_lecture <=> b.get_lecture }}
+      site.data["sidebar"]["folders"] = units.keys.sort.map do |i|
+        {
+          "title" => "Unit #{i}",
+          "output" => "web",
+          "folderitems" => units[i].map do |lecture|
+            {
+              "title" => "Lec #{lecture.get_lecture} - #{lecture.get_page_name}",
+              "url" => lecture.get_nice_dest,
+              "output" => "web"
+            }
+          end
+        }
       end
     end
 
@@ -68,6 +92,33 @@ module Jekyll
       Jekyll::Hooks.trigger :pages, :post_init, self
     end
 
+    # Get pretty name of page for nav.
+    def get_page_name
+      # TODO: Get from content.
+      @name.match(/.*?-(.+)\./)[1]
+    end
+
+    def get_nice_dest
+      p = Pathname.new('/')
+      p.join(@dir, File.basename(@name, File.extname(@name))).to_s
+    end
+
+    def get_unit
+      m = @name.match(/unit(\d+)/)[1]
+      m.to_i
+    end
+
+    def get_type
+      if @name =~ /unit\d+lec\d+/
+        :lecture
+      end
+    end
+
+    def get_lecture
+      m = @name.match(/lec(\d+)/)[1]
+      m.to_i
+    end
+
     # Identify relative images and move to site assets folder.
     def process_images
       # Split "![alt text](url)" into ["![alt text](", "url", ")"]
@@ -76,7 +127,7 @@ module Jekyll
       new_content = ""
       pos = 0
       source_dir = Pathname.new(@dir)
-      out_dir = Pathname.new("assets/images")
+      out_dir = Pathname.new("images")
       base_url = Pathname.new("{{site.url}}")
       images = []
       while !(i = self.content.index(imgRE, pos)).nil?
@@ -109,9 +160,9 @@ module Jekyll
     end
   end
 
+  # Image file with custom out dir.
   class NoteImageFile < StaticFile
     def initialize(site, base, dir, name, dest)
-      #puts "NoteImageFile: Base: #{base}, Dir: #{dir}, Name: #{name}, Dest: #{dest}"
       @_dest_dir = dest
       super(site, base, dir, name)
     end
