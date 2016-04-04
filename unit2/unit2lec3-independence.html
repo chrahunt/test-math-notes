@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>  | </title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="/test-math-notes/js/jquery.navgoco.min.js"></script>
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      extensions: [
+        "AMSmath.js",
+        "AMSsymbols.js",
+        "noErrors.js",
+        "noUndefined.js"
+      ]
+    },
+    jax: [
+      "input/TeX",
+      "output/HTML-CSS"
+    ],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['\[','\]'] ],
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+<body>
+<div class="container">
+  
+<ul id="mysidebar" class="nav">
+    <li class="sidebarTitle">Notes</li>
+    
+    
+    <li>
+        <a href="#">Unit 1</a>
+        <ul>
+            
+            
+            
+            <li><a href="/test-math-notes/unit1/unit1lec1-probability-models">Lec 1 - probability-models</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+    
+    <li>
+        <a href="#">Unit 2</a>
+        <ul>
+            
+            
+            
+            <li><a href="/test-math-notes/unit2/unit2lec2-conditioning-and-bayes-rule">Lec 2 - conditioning-and-bayes-rule</a></li>
+            
+            
+            
+            
+            
+            
+            <li><a href="/test-math-notes/unit2/unit2lec3-independence">Lec 3 - independence</a></li>
+            
+            
+            
+            
+        </ul>
+        
+        
+        <!-- if you aren't using the accordion, uncomment this block:
+           <p class="external">
+               <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+           </p>
+           -->
+    </li>
+</ul>
+</div>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  <h1 id="lec-3-independence">Lec 3: Independence</h1>
+
+<p>What is independence?<br />
+When the conditional and unconditional probabilities between two events are the same.</p>
+
+<p>Focus
+* intuition about the meaning of independence
+* conditional independence
+* independence of a collection
+* reliability analysis
+* word of caution</p>
+
+<h2 id="motivating-example-for-independence">Motivating example for independence</h2>
+
+<p><img src="/test-math-notes/images/unit2/unit2lec3-independence/dc9f9a45084779bf0b852750d0d67796.png" alt="coin toss slide" /></p>
+
+<ol>
+  <li>The expression next to each branch gives the conditional probability for that branch.</li>
+</ol>
+
+<p>What is special about the conditional probabilities for events in the diagram? <br />
+They are the same regardless of the condition that led to that point.</p>
+
+<p>Total probability is the same and the probability is the same regardless of the prior.</p>
+
+<p>What is the intuitive definition of independence?<br />
+[
+\cpr{B}{A} = \pr{B}
+]</p>
+
+<p>Notice
+[
+\begin{align}
+\pr{A \cap B} &amp;= \pr{A} \cpr{B}{A}<br />
+&amp;= \pr{A}\pr{B}
+\end{align}
+]</p>
+
+<p>What is the formal definition of independence? Why do we use it instead of the intuitive definition?
+[
+\pr{A \cap B} = \pr{A} \cdot \pr{B}
+]
+* it is symmetric with respect to $A$ and $B$
+* it implies the reverse of the intuitive definition: $\cpr{A}{B} = \pr{A}$
+* applies even if $\pr{A} = 0$</p>
+
+<p><img src="/test-math-notes/images/unit2/unit2lec3-independence/b7818fccae2e2a94d600b0388d2f3bff.png" alt="example relationship between independence and intersection" /></p>
+
+<p>Notice that these are not independent even though they are non-intersecting.</p>
+
+<p>Non-intersecting sets seem to be isolated from each other, but that doesn’t mean that knowledge of one doesn’t give us knowledge of the other.</p>
+
+<p>Where does independence have a place in the real world?<br />
+Whenever events result from distinct physical and non-interacting processes, or numerical accident.</p>
+
+<p>// TODO: brush up on reflexive, transitive, symmetric, coreflexive</p>
+
+<p>Theorem: If $A$ and $B$ are independent, then $A$ and $B^c$ are independent.</p>
+
+<p>Prf: If the non-occurrence of $B$ gave you information about the occurrence of $A$, then the occurrence of $B$ would likewise give you information, which is a contradiction.</p>
+
+<p>Also a formal proof exists.</p>
+
+<p>What is conditional independence?<br />
+Given some $C$, some values are independent under the probability law $\cpr{\cdot}{C}$.</p>
+
+<p>e.g. $\cpr{A \cap B}{C} = \cpr{A}{C} \cpr{B}{C}$</p>
+
+<p><img src="/test-math-notes/images/unit2/unit2lec3-independence/51037da728515b76fad8defa93dfa411.png" alt="" /></p>
+
+<p>Independence does not imply conditional independence, as in the above example. Because $A$ and $B$ do not have an intersection in $C$, there is information provided when you know that $C$ occurred because then either $A$ occurred or $B$ occurred but not both.</p>
+
+<p>Given $A$ and $B$ are conditionally independent in $C$, are $A$ and $B^c$ conditionally independent?<br />
+Yes, the conditional model is just a probability model and the fact that the complement is independent holds.</p>
+
+<p>Given $A$ and $B$ are conditionally independent in $C$, are they conditionally independent given $C^c$?<br />
+Not necessarily, they may have no intersection in $C^c$.</p>
+
+<p><img src="/test-math-notes/images/unit2/unit2lec3-independence/5c816d4fe0a65e2382eb2298b024903b.png" alt="" /></p>
+
+<p>Conditioning may affect independence, because the condition itself may impart some knowledge.</p>
+
+<h2 id="independence-of-a-collection-of-events">Independence of a collection of events</h2>
+
+<p>Intuitively, information on some of the events does not change the probabilities related to the remaining events.</p>
+
+<p>Defn: Events $A_1, A_2, \dots, A_n$ are independent if: $\pr{A_i \cap A_j \cap \cdots \cap A_m} = \pr{A_i}\pr{A_j}\cdots\pr{A_m}$ for any distinct indices $i, j, m$</p>
+
+<p>Pairwise independence is necessary but not sufficient, we also need all intersections of subsets of the set of events.</p>
+
+<h2 id="independence-vs-pairwise-independence">Independence vs pairwise independence</h2>
+
+<p>Example:</p>
+
+<p>2 fair coin tosses. The possible events are ${H_1, H_2, T_1, T_2}$. Add another event $C$ which contains the outcomes that the two tosses had the same result: ${HH, TT}$.</p>
+
+<p>How do you check for pairwise independence?<br />
+Take each combination of events and calculate whether $\pr{A_1 \cap A_2} = \pr{A_1}\pr{A_2}$. It turns out in this example that all sets have pairwise independence.</p>
+
+<p>How do you check for independence of some set?<br />
+Enumerate the possible subsets and test that $\pr{\text{intersection of events}} =$ product of probabilities of individual events.</p>
+
+<p>How do you check for independence (i.e. independence of the collection)?<br />
+Check that all possible intersections of events are independent. It turns out that this is not true, since knowing $H_1, H_2$ gives you $C$.</p>
+
+<p>You can also think about independence as whether the conditional probability of an event changes from its general probability.</p>
+
+<h2 id="reliability">Reliability</h2>
+
+<p>Why is independence a powerful property?<br />
+It allows breaking up of complex probabilities.</p>
+
+<p>// TODO: What is a “complex probability”?</p>
+
+<p>Reliability example:<br />
+Circuit of units that have a specific failure rate. The question is the probability that the circuit is up, that there is a path from one side to another.</p>
+
+<p><img src="/test-math-notes/images/unit2/unit2lec3-independence/f66e1fdbf2457c828a72bc55e777b881.png" alt="circuit probability example" /></p>
+
+<p>Using de morgan’s laws in conjunction with knowing that the complement of a probability $P$ is $1-P$.</p>
+
+<h2 id="the-kings-sibling">The king’s sibling</h2>
+
+<p><img src="/test-math-notes/images/unit2/unit2lec3-independence/dc853f8df0b65f796de19f34a240f1ee.png" alt="" /></p>
+
+<p>This problem is a warning to consider all assumptions. The statement that the king comes from a family of 2 children is important because the reason for having 2 children can impact the probability determined at the end.</p>
+
+
+  }
+</div>
+</body>
+</html>
