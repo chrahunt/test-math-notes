@@ -128,7 +128,7 @@ module Jekyll
       pos = 0
       source_dir = Pathname.new(@dir)
       out_dir = Pathname.new("images")
-      base_url = Pathname.new("{{site.url}}")
+      base_url = Pathname.new("{{site.baseurl}}")
       images = []
       while !(i = self.content.index(imgRE, pos)).nil?
         match = self.content.match(imgRE, i)
